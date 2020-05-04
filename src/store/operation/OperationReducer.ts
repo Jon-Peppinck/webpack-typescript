@@ -1,5 +1,11 @@
-// TODO: any
-export const operationReducer = (state = { count: 0 }, action: any) => {
+import { OperationActionTypes } from './models/actions';
+
+const defaultState: Count = { count: 0 };
+
+export const operationReducer = (
+  state = defaultState,
+  action: OperationActionTypes
+): Count => {
   const nextState = {
     count: state.count,
   };

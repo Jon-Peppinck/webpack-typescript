@@ -164,7 +164,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sto
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"boundAdd\", function() { return boundAdd; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"boundMinus\", function() { return boundMinus; });\n/* harmony import */ var _rootStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../rootStore */ \"./src/store/rootStore.ts\");\n\r\n// https://redux.js.org/basics/actions\r\n// action types\r\nvar ADD = 'ADD';\r\nvar MINUS = 'MINUS';\r\n// action creators\r\nvar add = function () {\r\n    return {\r\n        type: ADD,\r\n    };\r\n};\r\nvar minus = function () {\r\n    return {\r\n        type: MINUS,\r\n    };\r\n};\r\n// bound action creator automatically dispatches\r\nvar boundAdd = function () { return _rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].dispatch(add()); };\r\nvar boundMinus = function () { return _rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].dispatch(minus()); };\r\n\n\n//# sourceURL=webpack:///./src/store/operation/OperationAction.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"boundAdd\", function() { return boundAdd; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"boundMinus\", function() { return boundMinus; });\n/* harmony import */ var _rootStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../rootStore */ \"./src/store/rootStore.ts\");\n/* harmony import */ var _models_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./models/actions */ \"./src/store/operation/models/actions.ts\");\n\r\n\r\n// action creators\r\nvar add = function () {\r\n    return {\r\n        type: _models_actions__WEBPACK_IMPORTED_MODULE_1__[\"ADD\"],\r\n    };\r\n};\r\nvar minus = function () {\r\n    return {\r\n        type: _models_actions__WEBPACK_IMPORTED_MODULE_1__[\"MINUS\"],\r\n    };\r\n};\r\n// bound action creator automatically dispatches\r\nvar boundAdd = function () { return _rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].dispatch(add()); };\r\nvar boundMinus = function () { return _rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].dispatch(minus()); };\r\n\n\n//# sourceURL=webpack:///./src/store/operation/OperationAction.ts?");
 
 /***/ }),
 
@@ -176,7 +176,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"operationReducer\", function() { return operationReducer; });\n// TODO: any\r\nvar operationReducer = function (state, action) {\r\n    if (state === void 0) { state = { count: 0 }; }\r\n    var nextState = {\r\n        count: state.count,\r\n    };\r\n    switch (action.type) {\r\n        case 'ADD':\r\n            nextState.count = state.count + 1;\r\n            return nextState;\r\n        case 'MINUS':\r\n            nextState.count = state.count - 1;\r\n            return nextState;\r\n        default:\r\n            return state;\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/store/operation/OperationReducer.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"operationReducer\", function() { return operationReducer; });\nvar defaultState = { count: 0 };\r\nvar operationReducer = function (state, action) {\r\n    if (state === void 0) { state = defaultState; }\r\n    var nextState = {\r\n        count: state.count,\r\n    };\r\n    switch (action.type) {\r\n        case 'ADD':\r\n            nextState.count = state.count + 1;\r\n            return nextState;\r\n        case 'MINUS':\r\n            nextState.count = state.count - 1;\r\n            return nextState;\r\n        default:\r\n            return state;\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/store/operation/OperationReducer.ts?");
+
+/***/ }),
+
+/***/ "./src/store/operation/models/actions.ts":
+/*!***********************************************!*\
+  !*** ./src/store/operation/models/actions.ts ***!
+  \***********************************************/
+/*! exports provided: ADD, MINUS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ADD\", function() { return ADD; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MINUS\", function() { return MINUS; });\n// action types\r\nvar ADD = 'ADD';\r\nvar MINUS = 'MINUS';\r\n\n\n//# sourceURL=webpack:///./src/store/operation/models/actions.ts?");
 
 /***/ }),
 
@@ -188,7 +200,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"store\", function() { return store; });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./operation/OperationReducer */ \"./src/store/operation/OperationReducer.ts\");\n\r\n\r\nvar rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"combineReducers\"])({\r\n    operationReducer: _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_1__[\"operationReducer\"],\r\n});\r\nvar store = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"createStore\"])(rootReducer);\r\n\n\n//# sourceURL=webpack:///./src/store/rootStore.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"store\", function() { return store; });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./operation/OperationReducer */ \"./src/store/operation/OperationReducer.ts\");\n\r\n\r\nvar rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"combineReducers\"])({\r\n    operationReducer: _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_1__[\"operationReducer\"],\r\n});\r\n// export type AppState = ReturnType<typeof rootReducer>;\r\nvar store = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"createStore\"])(rootReducer);\r\n\n\n//# sourceURL=webpack:///./src/store/rootStore.ts?");
 
 /***/ })
 

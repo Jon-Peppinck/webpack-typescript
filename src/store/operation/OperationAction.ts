@@ -1,19 +1,16 @@
 import { store } from '../rootStore';
 
-// https://redux.js.org/basics/actions
-
-// action types
-const ADD = 'ADD';
-const MINUS = 'MINUS';
+import { AppActions } from '../models/actions';
+import { ADD, MINUS } from './models/actions';
 
 // action creators
-const add = () => {
+const add = (): AppActions => {
   return {
     type: ADD,
   };
 };
 
-const minus = () => {
+const minus = (): AppActions => {
   return {
     type: MINUS,
   };
