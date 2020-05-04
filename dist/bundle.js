@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/redux-thunk/es/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/redux-thunk/es/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nfunction createThunkMiddleware(extraArgument) {\n  return function (_ref) {\n    var dispatch = _ref.dispatch,\n        getState = _ref.getState;\n    return function (next) {\n      return function (action) {\n        if (typeof action === 'function') {\n          return action(dispatch, getState, extraArgument);\n        }\n\n        return next(action);\n      };\n    };\n  };\n}\n\nvar thunk = createThunkMiddleware();\nthunk.withExtraArgument = createThunkMiddleware;\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (thunk);\n\n//# sourceURL=webpack:///./node_modules/redux-thunk/es/index.js?");
+
+/***/ }),
+
 /***/ "./node_modules/redux/es/redux.js":
 /*!****************************************!*\
   !*** ./node_modules/redux/es/redux.js ***!
@@ -152,7 +164,43 @@ eval("module.exports = function(originalModule) {\n\tif (!originalModule.webpack
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _store_rootStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/rootStore */ \"./src/store/rootStore.ts\");\n/* harmony import */ var _store_operation_OperationAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/operation/OperationAction */ \"./src/store/operation/OperationAction.ts\");\n\r\n\r\nvar counterEl = document.getElementById('counter');\r\nvar render = function () {\r\n    var state = _store_rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].getState();\r\n    counterEl.innerHTML = state.operationReducer.count.toString();\r\n};\r\nrender();\r\n_store_rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].subscribe(render);\r\n// ACTIONS\r\ndocument.getElementById('add').addEventListener('click', function () {\r\n    Object(_store_operation_OperationAction__WEBPACK_IMPORTED_MODULE_1__[\"boundAdd\"])();\r\n});\r\ndocument.getElementById('minus').addEventListener('click', function () {\r\n    Object(_store_operation_OperationAction__WEBPACK_IMPORTED_MODULE_1__[\"boundMinus\"])();\r\n});\r\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _store_rootStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/rootStore */ \"./src/store/rootStore.ts\");\n/* harmony import */ var _store_operation_OperationAction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/operation/OperationAction */ \"./src/store/operation/OperationAction.ts\");\n/* harmony import */ var _store_async_AsyncAction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/async/AsyncAction */ \"./src/store/async/AsyncAction.ts\");\n\r\n\r\n\r\nvar counterEl = document.getElementById('counter');\r\nvar userEl = document.getElementById('user');\r\nvar render = function () {\r\n    var state = _store_rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].getState();\r\n    counterEl.innerHTML = state.operationReducer.count.toString();\r\n};\r\nrender();\r\n_store_rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].subscribe(render);\r\n// ACTIONS\r\ndocument.getElementById('add').addEventListener('click', function () {\r\n    Object(_store_operation_OperationAction__WEBPACK_IMPORTED_MODULE_1__[\"boundAdd\"])();\r\n});\r\ndocument.getElementById('minus').addEventListener('click', function () {\r\n    Object(_store_operation_OperationAction__WEBPACK_IMPORTED_MODULE_1__[\"boundMinus\"])();\r\n});\r\n// ASYNC ACTIONS\r\ndocument.getElementById('getUser').addEventListener('click', function () {\r\n    Object(_store_async_AsyncAction__WEBPACK_IMPORTED_MODULE_2__[\"boundFetchUser\"])().then(function () {\r\n        var state = _store_rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].getState();\r\n        userEl.innerHTML = \"ID: \" + state.asyncReducer.id + \", title: \" + state.asyncReducer.title;\r\n        console.log(_store_rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].getState());\r\n    });\r\n});\r\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+
+/***/ }),
+
+/***/ "./src/store/async/AsyncAction.ts":
+/*!****************************************!*\
+  !*** ./src/store/async/AsyncAction.ts ***!
+  \****************************************/
+/*! exports provided: fetchUser, boundFetchUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"fetchUser\", function() { return fetchUser; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"boundFetchUser\", function() { return boundFetchUser; });\n/* harmony import */ var _rootStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../rootStore */ \"./src/store/rootStore.ts\");\n/* harmony import */ var _models_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./models/actions */ \"./src/store/async/models/actions.ts\");\nvar __assign = (undefined && undefined.__assign) || function () {\r\n    __assign = Object.assign || function(t) {\r\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\r\n            s = arguments[i];\r\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\r\n                t[p] = s[p];\r\n        }\r\n        return t;\r\n    };\r\n    return __assign.apply(this, arguments);\r\n};\r\n\r\n\r\nvar requestUser = function () {\r\n    return {\r\n        type: _models_actions__WEBPACK_IMPORTED_MODULE_1__[\"FETCH_USER_PENDING\"],\r\n        user: { userId: 0, id: 0, title: '', completed: false },\r\n    };\r\n};\r\nvar returnUser = function (json) {\r\n    return {\r\n        type: _models_actions__WEBPACK_IMPORTED_MODULE_1__[\"FETCH_USER_FULFILLED\"],\r\n        user: __assign({}, json),\r\n    };\r\n};\r\nvar errorUser = function () {\r\n    return {\r\n        type: _models_actions__WEBPACK_IMPORTED_MODULE_1__[\"FETCH_USER_REJECTED\"],\r\n        user: { userId: -1, id: -1, title: '', completed: false },\r\n    };\r\n};\r\nfunction fetchUser() {\r\n    return function (dispatch) {\r\n        dispatch(requestUser());\r\n        var randomNumber = Math.floor(Math.random() * 4) + 1;\r\n        return fetch(\"https://jsonplaceholder.typicode.com/todos/\" + randomNumber)\r\n            .then(function (response) { return response.json(); }, function (error) {\r\n            console.log(error);\r\n            dispatch(errorUser());\r\n        })\r\n            .then(function (json) {\r\n            dispatch(returnUser(json));\r\n        });\r\n    };\r\n}\r\nvar boundFetchUser = function () { return _rootStore__WEBPACK_IMPORTED_MODULE_0__[\"store\"].dispatch(fetchUser()); };\r\n\n\n//# sourceURL=webpack:///./src/store/async/AsyncAction.ts?");
+
+/***/ }),
+
+/***/ "./src/store/async/AsyncReducer.ts":
+/*!*****************************************!*\
+  !*** ./src/store/async/AsyncReducer.ts ***!
+  \*****************************************/
+/*! exports provided: asyncReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"asyncReducer\", function() { return asyncReducer; });\nvar __assign = (undefined && undefined.__assign) || function () {\r\n    __assign = Object.assign || function(t) {\r\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\r\n            s = arguments[i];\r\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\r\n                t[p] = s[p];\r\n        }\r\n        return t;\r\n    };\r\n    return __assign.apply(this, arguments);\r\n};\r\nvar defaultState = { userId: 0, id: 0, title: '', completed: false };\r\nvar asyncReducer = function (state, action) {\r\n    if (state === void 0) { state = defaultState; }\r\n    switch (action.type) {\r\n        case 'FETCH_USER_PENDING':\r\n            return __assign({}, state);\r\n        case 'FETCH_USER_FULFILLED':\r\n            var title = action.user.title;\r\n            return __assign({}, action.user);\r\n        case 'FETCH_USER_REJECTED':\r\n            return __assign({}, state);\r\n        default:\r\n            return state;\r\n    }\r\n};\r\n\n\n//# sourceURL=webpack:///./src/store/async/AsyncReducer.ts?");
+
+/***/ }),
+
+/***/ "./src/store/async/models/actions.ts":
+/*!*******************************************!*\
+  !*** ./src/store/async/models/actions.ts ***!
+  \*******************************************/
+/*! exports provided: FETCH_USER_PENDING, FETCH_USER_FULFILLED, FETCH_USER_REJECTED */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"FETCH_USER_PENDING\", function() { return FETCH_USER_PENDING; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"FETCH_USER_FULFILLED\", function() { return FETCH_USER_FULFILLED; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"FETCH_USER_REJECTED\", function() { return FETCH_USER_REJECTED; });\n// action types\r\nvar FETCH_USER_PENDING = 'FETCH_USER_PENDING';\r\nvar FETCH_USER_FULFILLED = 'FETCH_USER_FULFILLED';\r\nvar FETCH_USER_REJECTED = 'FETCH_USER_REJECTED';\r\n\n\n//# sourceURL=webpack:///./src/store/async/models/actions.ts?");
 
 /***/ }),
 
@@ -200,7 +248,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"store\", function() { return store; });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./operation/OperationReducer */ \"./src/store/operation/OperationReducer.ts\");\n\r\n\r\nvar rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"combineReducers\"])({\r\n    operationReducer: _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_1__[\"operationReducer\"],\r\n});\r\n// export type AppState = ReturnType<typeof rootReducer>;\r\nvar store = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"createStore\"])(rootReducer);\r\n\n\n//# sourceURL=webpack:///./src/store/rootStore.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"store\", function() { return store; });\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ \"./node_modules/redux-thunk/es/index.js\");\n/* harmony import */ var _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./operation/OperationReducer */ \"./src/store/operation/OperationReducer.ts\");\n/* harmony import */ var _async_AsyncReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./async/AsyncReducer */ \"./src/store/async/AsyncReducer.ts\");\n\r\n\r\n\r\n\r\nvar rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"combineReducers\"])({\r\n    operationReducer: _operation_OperationReducer__WEBPACK_IMPORTED_MODULE_2__[\"operationReducer\"],\r\n    asyncReducer: _async_AsyncReducer__WEBPACK_IMPORTED_MODULE_3__[\"asyncReducer\"],\r\n});\r\nvar store = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"createStore\"])(rootReducer, Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"applyMiddleware\"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__[\"default\"]));\r\n\n\n//# sourceURL=webpack:///./src/store/rootStore.ts?");
 
 /***/ })
 

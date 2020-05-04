@@ -1,3 +1,4 @@
 import { OperationActionTypes } from '../operation/models/actions';
+import { AsyncActionTypes } from '../async/models/actions';
 
-export type AppActions = OperationActionTypes;
+export type AppActions = OperationActionTypes | AsyncActionTypes;
