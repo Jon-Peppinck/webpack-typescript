@@ -25,7 +25,7 @@ const returnUser = (json: User): AppActions => {
 const errorUser = (): AppActions => {
   return {
     type: FETCH_USER_REJECTED,
-    user: { userId: -1, id: -1, title: '', completed: false },
+    user: { userId: -1, id: -1, title: 'error', completed: false },
   };
 };
 
@@ -35,16 +35,21 @@ export function fetchUser() {
 
     const randomNumber = Math.floor(Math.random() * 4) + 1;
 
+    let hasErrored = false;
+
     return fetch(`https://jsonplaceholder.typicode.com/todos/${randomNumber}`)
       .then(
         (response) => response.json(),
         (error) => {
+          hasErrored = true;
           console.log(error);
           dispatch(errorUser());
         }
       )
       .then((json) => {
-        dispatch(returnUser(json));
+        if (!hasErrored) {
+          dispatch(returnUser(json));
+        }
       });
   };
 }

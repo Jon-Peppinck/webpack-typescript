@@ -11,11 +11,10 @@ export const asyncReducer = (
       return { ...state };
 
     case 'FETCH_USER_FULFILLED':
-      let title = action.user.title;
       return { ...action.user };
 
     case 'FETCH_USER_REJECTED':
-      return { ...state };
+      return { ...action.user };
 
     default:
       return state;

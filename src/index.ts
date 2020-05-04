@@ -28,6 +28,5 @@ document.getElementById('getUser')!.addEventListener('click', () => {
   boundFetchUser().then(() => {
     const state = store.getState();
     userEl.innerHTML = `ID: ${state.asyncReducer.id}, title: ${state.asyncReducer.title}`;
-    console.log(store.getState());
   });
 });

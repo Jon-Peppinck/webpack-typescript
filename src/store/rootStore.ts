@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
+import { logger } from 'redux-logger';
 
 import { operationReducer } from './operation/OperationReducer';
 import { asyncReducer } from './async/AsyncReducer';
@@ -14,5 +15,5 @@ export type AppState = ReturnType<typeof rootReducer>;
 
 export const store = createStore(
   rootReducer,
-  applyMiddleware(thunk as ThunkMiddleware<AppState, AppActions>)
+  applyMiddleware(thunk as ThunkMiddleware<AppState, AppActions>, logger)
 );
